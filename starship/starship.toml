@@ -1,0 +1,100 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = true
+
+format = """
+$os\
+$username\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$docker_context
+$character
+"""
+
+right_format = """
+$time
+"""
+
+# ---------------- COLORS ----------------
+palette = "github_dark"
+
+[palettes.github_dark]
+fg = "#c9d1d9"
+muted = "#8b949e"
+blue = "#58a6ff"
+green = "#3fb950"
+yellow = "#d29922"
+red = "#f85149"
+purple = "#a371f7"
+cyan = "#39c5cf"
+
+# ---------------- OS ----------------
+[os]
+disabled = false
+style = "fg:muted"
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Arch = "󰣇"
+Linux = "󰌽"
+
+# ---------------- USER ----------------
+[username]
+show_always = true
+style_user = "fg:muted"
+format = "[$user ]($style)"
+
+# ---------------- DIRECTORY ----------------
+[directory]
+style = "fg:blue"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncate_to_repo = true
+
+[directory.substitutions]
+"Developer" = "󰲋 "
+"Projects"  = "󰲋 "
+"Documents" = "󰈙 "
+"Downloads" = " "
+
+# ---------------- GIT ----------------
+[git_branch]
+symbol = ""
+style = "fg:purple"
+format = "[ $symbol $branch ]($style)"
+
+[git_status]
+style = "fg:yellow"
+format = "[ $all_status$ahead_behind ]($style)"
+
+# ---------------- LANGUAGES ----------------
+[nodejs]
+symbol = ""
+style = "fg:green"
+format = "[ node $version ]($style)"
+
+[python]
+symbol = ""
+style = "fg:cyan"
+format = "[ py $version ]($style)"
+
+# ---------------- DOCKER ----------------
+[docker_context]
+symbol = ""
+style = "fg:blue"
+format = "[ docker:$context ]($style)"
+
+# ---------------- TIME ----------------
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "fg:muted"
+format = "[ $time ]($style)"
+
+# ---------------- PROMPT ----------------
+[character]
+success_symbol = "[❯](fg:green)"
+error_symbol = "[❯](fg:red)"
