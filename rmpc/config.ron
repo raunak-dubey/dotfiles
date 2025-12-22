@@ -1,0 +1,154 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+
+(
+    // --------- UI Behaviour --------------
+    enable_mouse: true,
+    wrap_navigation: false,
+    volume_step: 5,
+    status_update_interval_ms: 500,
+    scrolloff: 0,
+    select_current_song_on_change: false,
+    max_fps: 30,
+    browser_column_widths: [20, 38, 42],
+
+    on_song_change: [
+        "~/.config/rmpc/increment_play_count.sh"
+    ],
+
+    album_art: (
+        method: Auto,
+        max_size_px: (width: 400, height: 400),
+        vertical_align: Top,
+        horizontal_align: Center,
+    ),
+
+    layout: (
+        queue: "left",
+        library: "right",
+        status: "bottom",
+    ),
+
+    ui: (
+        show_borders: false,
+        hide_cursor: true,
+        artwork: true,
+        status_bar: true,
+    ),
+
+    behavior: (
+        resume_on_start: true,
+        stop_on_exit: false,
+    ),
+
+    library: (
+        group_by: "artist",
+    ),
+
+    artists: (
+        album_display_mode: SplitByDate,
+        album_sort_by: Date,
+    ),
+
+
+    search: (
+        case_sensitive: false,
+        mode: Contains,
+        tags: [
+            (value: "any",         label: "Any Tag"),
+            (value: "artist",      label: "Artist"),
+            (value: "album",       label: "Album"),
+            (value: "title",       label: "Title"),
+            (value: "filename",    label: "Filename"),
+            (value: "albumartist", label: "Featured"),
+        ],
+    ),
+
+    keybinds: (
+        global: {
+            ":":       CommandMode,
+            ",":       VolumeDown,
+            "s":       Stop,
+            ".":       VolumeUp,
+            "<Tab>":   NextTab,
+            "<S-Tab>": PreviousTab,
+            "1":       SwitchToTab("Queue"),
+            "2":       SwitchToTab("Artists"),
+            "3":       SwitchToTab("Albums"),
+            "4":       SwitchToTab("Search"),
+            "5":       SwitchToTab("Directories"),
+            "6":       SwitchToTab("Lyrics"),
+            "q":       Quit,
+            ">":       NextTrack,
+            "p":       TogglePause,
+            "<":       PreviousTrack,
+            "f":       SeekForward,
+            "z":       ToggleRepeat,
+            "x":       ToggleRandom,
+            "c":       ToggleConsume,
+            "v":       ToggleSingle,
+            "b":       SeekBack,
+            "~":       ShowHelp,
+            "I":       ShowCurrentSongInfo,
+            "O":       ShowOutputs,
+            "P":       ShowDecoders,
+        },
+        navigation: {
+            "k":         Up,
+            "j":         Down,
+            "h":         Left,
+            "l":         Right,
+            "<Up>":      Up,
+            "<Down>":    Down,
+            "<Left>":    Left,
+            "<Right>":   Right,
+            "<C-k>":     PaneUp,
+            "<C-j>":     PaneDown,
+            "<C-h>":     PaneLeft,
+            "<C-l>":     PaneRight,
+            "<C-u>":     UpHalf,
+            "N":         PreviousResult,
+            "a":         Add,
+            "A":         AddAll,
+            "r":         Rename,
+            "n":         NextResult,
+            "g":         Top,
+            "<Space>":   Select,
+            "<C-Space>": InvertSelection,
+            "G":         Bottom,
+            "<CR>":      Confirm,
+            "i":         FocusInput,
+            "J":         MoveDown,
+            "<C-d>":     DownHalf,
+            "/":         EnterSearch,
+            "<C-c>":     Close,
+            "<Esc>":     Close,
+            "K":         MoveUp,
+            "D":         Delete,
+        },
+        queue: {
+            "D":       DeleteAll,
+            "<CR>":    Play,
+            "<C-s>":   Save,
+            "a":       AddToPlaylist,
+            "d":       Delete,
+            "i":       ShowInfo,
+            "C":       JumpToCurrent,
+        },
+    ),
+     tabs: [
+        (
+            name: "Queue",
+            pane: Split(
+                direction: Horizontal,
+                panes: [
+                    (size: "25%", pane: Pane(AlbumArt)),
+                    (size: "75%", pane: Pane(Queue)),
+                ],
+            ),
+        ),
+        (name: "Browse", pane: Pane(Directories)),
+        (name: "Search", pane: Pane(Search)),
+    ],
+)

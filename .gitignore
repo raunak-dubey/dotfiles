@@ -2,3 +2,9 @@ kitty.conf.bak
 .zshrc.save
 .vscode/
 .DS_Store
+
+# rmpc and mpd files
+database
+state
+log
+sticker.sql
